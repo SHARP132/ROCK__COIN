@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Конфигурация страницы
 st.set_page_config(
@@ -89,7 +89,7 @@ with st.expander("💡 Технические характеристики"):
     - **Годовая доходность стейкинга:** до 12% APY
     """)
 
-# Аналитика
+# Графики в две колонки
 st.subheader("📊 Аналитика")
 chart_col1, chart_col2 = st.columns(2)
 
@@ -136,12 +136,14 @@ with chart_col2:
 # Токеномика
 st.subheader("📊 Токеномика")
 tokenomics_col1, tokenomics_col2 = st.columns(2)
+
 with tokenomics_col1:
     st.write("""
     - **Команда и советники:** 15% (15M ROCK)
     - **Маркетинг и партнерства:** 20% (20M ROCK)
     - **Экосистемный фонд:** 25% (25M ROCK)
     """)
+
 with tokenomics_col2:
     st.write("""
     - **Публичная продажа:** 30% (30M ROCK)
