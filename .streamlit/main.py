@@ -115,7 +115,7 @@ with chart_col1:
 
 with chart_col2:
     st.write("### Цена RockCOIN")
-    # Подготовка данных для свечного графика
+    # Генерация данных для свечного графика
     df['Open'] = df['Coin_Price'].shift(1)
     df['High'] = df['Coin_Price'] * (1 + np.random.uniform(0, 0.03, len(df)))
     df['Low'] = df['Coin_Price'] * (1 - np.random.uniform(0, 0.03, len(df)))
@@ -127,8 +127,8 @@ with chart_col2:
         high=df['High'],
         low=df['Low'],
         close=df['Close'],
-        increasing_line_color='#26df8b',  # Зеленый цвет для роста
-        decreasing_line_color='#df264d'   # Красный цвет для падения
+        increasing_line_color='#26df8b',
+        decreasing_line_color='#df264d'
     )])
     fig_price.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
