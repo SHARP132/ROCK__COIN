@@ -4,98 +4,62 @@ import numpy as np
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 ############################################
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import time
-import random
-
-# --- Настройки графиков ---
-plt.style.use('dark_background')
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
-fig.tight_layout(pad=3.0)
-
-# --- Данные для графика продажи битов ---
-x_beats_sold = []
-y_beats_sold = []
-total_beats_sold = 0 #Общее количество проданных битов
-price_per_beat = 5 # Цена за один бит
-beats_sold_per_tick = 1  # Начальное количество битов продаваемых за тик
-beats_variation = 0.2  # Максимальное изменение количества проданных битов в процентах
-
-# --- Данные для графика RockCoin ---
-x_rock = []
-y_rock = []
-rock_coin_value = 0.0001  # Начальная стоимость RockCoin (относительно продаж)
-rock_coin_variation = 0.05  # Максимальное изменение стоимости RockCoin в процентах
-rock_coin_base_value = 100 # RockCoin на 100 проданных битов
-
-# --- Функции обновления графиков ---
-
-def update_beats(frame):
-    global total_beats_sold, beats_sold_per_tick
-
-    # Генерация случайного изменения количества проданных битов
-    change = random.uniform(-beats_variation, beats_variation)
-    beats_sold_per_tick *= (1 + change)
-    beats_sold_per_tick = max(0.1, beats_sold_per_tick)  # Минимум 0.1
-    beats_sold = int(round(beats_sold_per_tick)) # Продаем целое число битов
-
-    total_beats_sold += beats_sold
-
-    x_beats_sold.append(time.time())
-    y_beats_sold.append(total_beats_sold * price_per_beat) #Общая выручка
-
-    # Ограничение количества точек на графике
-    if len(x_beats_sold) > 50:
-        x_beats_sold.pop(0)
-        y_beats_sold.pop(0)
-
-    ax1.clear()
-    ax1.plot(x_beats_sold, y_beats_sold, color='lime')
-    ax1.set_title('Продажа Битов (Выручка)')
-    ax1.set_xlabel('Время')
-    ax1.set_ylabel('Выручка ($)')
-    ax1.tick_params(axis='x', rotation=45)
-    ax1.grid(True, linestyle='--', alpha=0.5)
-
-    return ax1,
-
-def update_rock(frame):
-    global rock_coin_value, total_beats_sold
-
-    # Рассчитываем "справедливую" стоимость RockCoin на основе продаж битов
-    target_value = (total_beats_sold // rock_coin_base_value) * 0.001 # каждые 100 битов + 0.001
-
-    # Плавное изменение стоимости RockCoin
-    change_factor = 0.01 # Насколько сильно стоимость RockCoin будет приближаться к target
-    rock_coin_value += (target_value - rock_coin_value) * change_factor
-
-
-    x_rock.append(time.time())
-    y_rock.append(rock_coin_value)
-
-    # Ограничение количества точек на графике
-    if len(x_rock) > 50:
-        x_rock.pop(0)
-        y_rock.pop(0)
-
-    ax2.clear()
-    ax2.plot(x_rock, y_rock, color='coral')
-    ax2.set_title('Стоимость RockCoin (относительно продаж)')
-    ax2.set_xlabel('Время')
-    ax2.set_ylabel('Стоимость (у.е.)')
-    ax2.tick_params(axis='x', rotation=45)
-    ax2.grid(True, linestyle='--', alpha=0.5)
-
-    return ax2,
-
-# --- Создание анимаций ---
-ani_beats = animation.FuncAnimation(fig, update_beats, interval=1000, blit=False)
-ani_rock = animation.FuncAnimation(fig, update_rock, interval=1000, blit=False)
-
-# --- Отображение графиков ---
-plt.show()
-######################################
+#1
+dates = pd.date_range(start='2023-01-01', end=datetime.now(), freq='D')
+beats_sold = np.cumsum(np.random.randint(5, 50, size=len(dates)))
+coin_price = 10 + (beats_sold / 1000) + np.random.normal(0, 1, size=len(dates))
+#2
+fig_beats = go.Figure()
+fig_beats.add_trace(go.Scatter(
+    x=dates,
+    y=beats_sold,
+    mode='lines',
+    name='Продажи битов',
+    line=dict(color='#ff69b4', width=2)
+))
+fig_beats.update_layout(
+    title="Продажи битов",
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(color='white'),
+    xaxis=dict(gridcolor='#4a4a4a'),
+    yaxis=dict(gridcolor='#4a4a4a')
+)
+#3
+fig_beats = go.Figure()
+fig_beats.add_trace(go.Scatter(
+    x=dates,
+    y=beats_sold,
+    mode='lines',
+    name='Продажи битов',
+    line=dict(color='#ff69b4', width=2)
+))
+fig_beats.update_layout(
+    title="Продажи битов",
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(color='white'),
+    xaxis=dict(gridcolor='#4a4a4a'),
+    yaxis=dict(gridcolor='#4a4a4a')
+)
+#4
+fig_price = go.Figure()
+fig_price.add_trace(go.Scatter(
+    x=dates,
+    y=coin_price,
+    mode='lines',
+    name='Цена ROCK',
+    line=dict(color='#ff69b4', width=2)
+))
+fig_price.update_layout(
+    title="Цена RockCOIN",
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    font=dict(color='white'),
+    xaxis=dict(gridcolor='#4a4a4a'),
+    yaxis=dict(gridcolor='#4a4a4a')
+)
+######
 
 # Конфигурация страницы
 st.set_page_config(
