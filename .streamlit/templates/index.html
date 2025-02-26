@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitcoin Price</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Bitcoin Price</h1>
+    <img src="" alt="Bitcoin Price Plot">
+
+    <script>
+        // Обновляем изображение каждые 2 секунды
+        setInterval(function() {
+            var img = document.querySelector('img');
+            img.src = '{{ url_for("plot_png") }}?t=' + new Date().getTime();
+        }, 2000);
+    </script>
+</body>
+</html>
