@@ -1,33 +1,3 @@
-<canvas id="bitcoinChart" width="600" height="400"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  // Use an API to fetch Bitcoin data (replace with your API endpoint)
-  fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1')
-    .then(response => response.json())
-    .then(data => {
-      // Prepare data for Chart.js
-      const labels = data.prices.map(item => new Date(item[0]).toLocaleTimeString());
-      const prices = data.prices.map(item => item[1]);
-
-      // Create the chart
-      const ctx = document.getElementById('bitcoinChart').getContext('2d');
-      const chart = new Chart(ctx, {
-        type: 'line',
-        {
-          labels: labels,
-          datasets: [{
-            label: 'Bitcoin Price (USD)',
-            prices,
-            borderColor: 'rgb(255, 205, 86)',
-            tension: 0.1
-          }]
-        },
-        options: {}
-      });
-    })
-    .catch(error => console.error('Error fetching data:', error));
-</script>
 # 🎸 RockCOIN (ROCK)
 
 Революционная криптовалюта для рок-музыки и музыкальной индустрии
@@ -40,20 +10,6 @@
 В проекте используются два основных графика:
 - График продаж битов
 - График цены RockCOIN
-
-### Как использовать графики
-
-
-#######
-
-## 📊 Статистика RockCOIN
-
-
-График появится после появления криптовалюты...
-
-## 📈 Продажи битов
-
-График появится после появления криптовалюты...
 
 ## 🚀 О проекте
 
