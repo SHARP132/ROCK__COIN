@@ -4,61 +4,69 @@ import numpy as np
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 ############################################
-#1
-dates = pd.date_range(start='2023-01-01', end=datetime.now(), freq='D')
-beats_sold = np.cumsum(np.random.randint(5, 50, size=len(dates)))
-coin_price = 10 + (beats_sold / 1000) + np.random.normal(0, 1, size=len(dates))
-#2
-fig_beats = go.Figure()
-fig_beats.add_trace(go.Scatter(
-    x=dates,
-    y=beats_sold,
-    mode='lines',
-    name='Продажи битов',
-    line=dict(color='#ff69b4', width=2)
-))
-fig_beats.update_layout(
-    title="Продажи битов",
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'),
-    xaxis=dict(gridcolor='#4a4a4a'),
-    yaxis=dict(gridcolor='#4a4a4a')
-)
-#3
-fig_beats = go.Figure()
-fig_beats.add_trace(go.Scatter(
-    x=dates,
-    y=beats_sold,
-    mode='lines',
-    name='Продажи битов',
-    line=dict(color='#ff69b4', width=2)
-))
-fig_beats.update_layout(
-    title="Продажи битов",
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'),
-    xaxis=dict(gridcolor='#4a4a4a'),
-    yaxis=dict(gridcolor='#4a4a4a')
-)
-#4
-fig_price = go.Figure()
-fig_price.add_trace(go.Scatter(
-    x=dates,
-    y=coin_price,
-    mode='lines',
-    name='Цена ROCK',
-    line=dict(color='#ff69b4', width=2)
-))
-fig_price.update_layout(
-    title="Цена RockCOIN",
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'),
-    xaxis=dict(gridcolor='#4a4a4a'),
-    yaxis=dict(gridcolor='#4a4a4a')
-)
+from flask import Flask, render_template, Response
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import time
+import random
+import io  # Для работы с in-memory изображениями
+
+app = Flask(__name__)
+
+# --- Настройки графика Биткоина ---
+plt.style.use('dark_background')
+fig, ax1 = plt.subplots(figsize=(10, 6))
+fig.tight_layout(pad=3.0)
+
+# --- Данные для графика биткоина ---
+x_btc = []
+y_btc = []
+btc_price = 30000  # Начальная цена биткоина
+btc_variation = 0.01  # Максимальное изменение цены в процентах
+
+# --- Функции обновления графика ---
+def update_btc(frame):
+    global btc_price
+    change = random.uniform(-btc_variation, btc_variation)
+    btc_price *= (1 + change)
+    btc_price = max(1, btc_price)
+
+    x_btc.append(time.time())
+    y_btc.append(btc_price)
+
+    if len(x_btc) > 50:
+        x_btc.pop(0)
+        y_btc.pop(0)
+
+    ax1.clear()
+    ax1.plot(x_btc, y_btc, color='gold')
+    ax1.set_title('Цена Биткоина (в долларах)')
+    ax1.set_xlabel('Время')
+    ax1.set_ylabel('Цена ($)')
+    ax1.tick_params(axis='x', rotation=45)
+    ax1.grid(True, linestyle='--', alpha=0.5)
+
+# --- Функция для генерации изображения графика ---
+def generate_plot_image():
+    update_btc(0) #Обновляем данные
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+    return buf
+
+# --- Маршруты Flask ---
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/plot.png')
+def plot_png():
+    buf = generate_plot_image()
+    return Response(buf.read(), mimetype='image/png')
+
+# --- Запуск приложения ---
+if __name__ == '__main__':
+    app.run(debug=True)
 ######
 
 # Конфигурация страницы
