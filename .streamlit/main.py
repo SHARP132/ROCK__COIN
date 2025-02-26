@@ -95,14 +95,21 @@ chart_col1, chart_col2 = st.columns(2)
 
 with chart_col1:
     st.write("### Продажи битов")
-    fig_beats = go.Figure()
-    fig_beats.add_trace(go.Scatter(
+    # Данные для свечного графика битов
+    df['Open_Beats'] = df['Beats_Sold'].shift(1)
+    df['High_Beats'] = df['Beats_Sold'] * 1.1
+    df['Low_Beats'] = df['Beats_Sold'] * 0.9
+    df['Close_Beats'] = df['Beats_Sold']
+    
+    fig_beats = go.Figure(data=[go.Candlestick(
         x=df['Date'],
-        y=df['Beats_Sold'],
-        mode='lines',
-        name='Beats Sold',
-        line=dict(color='#ff69b4', width=2)
-    ))
+        open=df['Open_Beats'],
+        high=df['High_Beats'],
+        low=df['Low_Beats'],
+        close=df['Close_Beats'],
+        increasing_line_color='#26df8b',
+        decreasing_line_color='#df264d'
+    )])
     fig_beats.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
@@ -115,10 +122,10 @@ with chart_col1:
 
 with chart_col2:
     st.write("### Цена RockCOIN")
-    # Генерация данных для свечного графика
+    # Данные для свечного графика цены
     df['Open'] = df['Coin_Price'].shift(1)
-    df['High'] = df['Coin_Price'] * (1 + np.random.uniform(0, 0.03, len(df)))
-    df['Low'] = df['Coin_Price'] * (1 - np.random.uniform(0, 0.03, len(df)))
+    df['High'] = df['Coin_Price'] * 1.1
+    df['Low'] = df['Coin_Price'] * 0.9
     df['Close'] = df['Coin_Price']
     
     fig_price = go.Figure(data=[go.Candlestick(
