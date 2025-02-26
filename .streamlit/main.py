@@ -115,14 +115,21 @@ with chart_col1:
 
 with chart_col2:
     st.write("### Цена RockCOIN")
-    fig_price = go.Figure()
-    fig_price.add_trace(go.Scatter(
+    # Генерация данных для свечного графика
+    df['Open'] = df['Coin_Price'].shift(1)
+    df['High'] = df['Coin_Price'] * (1 + np.random.uniform(0, 0.03, len(df)))
+    df['Low'] = df['Coin_Price'] * (1 - np.random.uniform(0, 0.03, len(df)))
+    df['Close'] = df['Coin_Price']
+    
+    fig_price = go.Figure(data=[go.Candlestick(
         x=df['Date'],
-        y=df['Coin_Price'],
-        mode='lines',
-        name='ROCK Price',
-        line=dict(color='#ff69b4', width=2)
-    ))
+        open=df['Open'],
+        high=df['High'],
+        low=df['Low'],
+        close=df['Close'],
+        increasing_line_color='#26df8b',
+        decreasing_line_color='#df264d'
+    )])
     fig_price.update_layout(
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
