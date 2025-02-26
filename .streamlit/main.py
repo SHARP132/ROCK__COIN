@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # Конфигурация страницы
 st.set_page_config(
@@ -89,81 +89,59 @@ with st.expander("💡 Технические характеристики"):
     - **Годовая доходность стейкинга:** до 12% APY
     """)
 
-# Генерация данных для свечного графика
-def generate_candlestick_data():
-    dates = pd.date_range(start='2023-01-01', end=datetime.now(), freq='D')
-    df = pd.DataFrame()
-    df['Date'] = dates
-    df['Open'] = np.random.uniform(10, 15, size=len(dates))
-    df['High'] = df['Open'] + np.random.uniform(0, 2, size=len(dates))
-    df['Low'] = df['Open'] - np.random.uniform(0, 2, size=len(dates))
-    df['Close'] = np.random.uniform(df['Low'], df['High'], size=len(dates))
-    return df
-
-candlestick_data = generate_candlestick_data()
-
-# Графики
+# Аналитика
 st.subheader("📊 Аналитика")
-st.write("### RockCOIN (ROCK/USDT)")
+chart_col1, chart_col2 = st.columns(2)
 
-# Свечной график
-fig = go.Figure(data=[go.Candlestick(
-    x=candlestick_data['Date'],
-    open=candlestick_data['Open'],
-    high=candlestick_data['High'],
-    low=candlestick_data['Low'],
-    close=candlestick_data['Close'],
-    increasing_line_color='#26A69A',  # Зеленый цвет для растущих свечей
-    decreasing_line_color='#EF5350',  # Красный цвет для падающих свечей
-)])
+with chart_col1:
+    st.write("### Продажи битов")
+    fig_beats = go.Figure()
+    fig_beats.add_trace(go.Scatter(
+        x=df['Date'],
+        y=df['Beats_Sold'],
+        mode='lines',
+        name='Beats Sold',
+        line=dict(color='#ff69b4', width=2)
+    ))
+    fig_beats.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='white'),
+        xaxis=dict(gridcolor='#4a4a4a'),
+        yaxis=dict(gridcolor='#4a4a4a'),
+        margin=dict(t=0, b=0)
+    )
+    st.plotly_chart(fig_beats, use_container_width=True)
 
-fig.update_layout(
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'),
-    xaxis=dict(
-        gridcolor='#4a4a4a',
-        rangeslider=dict(visible=False)
-    ),
-    yaxis=dict(
-        gridcolor='#4a4a4a',
-        title='Price (USDT)'
-    ),
-    height=600
-)
-
-st.plotly_chart(fig, use_container_width=True)
-
-# График объема продаж битов
-st.write("### Объем продаж битов")
-fig_beats = go.Figure()
-fig_beats.add_trace(go.Bar(
-    x=df['Date'],
-    y=df['Beats_Sold'],
-    name='Volume',
-    marker_color='#B388FF'
-))
-fig_beats.update_layout(
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'),
-    xaxis=dict(gridcolor='#4a4a4a'),
-    yaxis=dict(gridcolor='#4a4a4a'),
-    height=300
-)
-st.plotly_chart(fig_beats, use_container_width=True)
+with chart_col2:
+    st.write("### Цена RockCOIN")
+    fig_price = go.Figure()
+    fig_price.add_trace(go.Scatter(
+        x=df['Date'],
+        y=df['Coin_Price'],
+        mode='lines',
+        name='ROCK Price',
+        line=dict(color='#ff69b4', width=2)
+    ))
+    fig_price.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='white'),
+        xaxis=dict(gridcolor='#4a4a4a'),
+        yaxis=dict(gridcolor='#4a4a4a'),
+        margin=dict(t=0, b=0)
+    )
+    st.plotly_chart(fig_price, use_container_width=True)
 
 # Токеномика
 st.subheader("📊 Токеномика")
 tokenomics_col1, tokenomics_col2 = st.columns(2)
-
 with tokenomics_col1:
     st.write("""
     - **Команда и советники:** 15% (15M ROCK)
     - **Маркетинг и партнерства:** 20% (20M ROCK)
     - **Экосистемный фонд:** 25% (25M ROCK)
     """)
-
 with tokenomics_col2:
     st.write("""
     - **Публичная продажа:** 30% (30M ROCK)
