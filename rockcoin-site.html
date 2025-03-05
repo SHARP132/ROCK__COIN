@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RockCOIN Рынок с Графиком</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://via.placeholder.com/1500x800?text=Rock+Background');
+            background-size: cover;
+        }
+        header {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ff4500;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ff4500;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+        .chart-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        .info-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .info-section a {
+            color: #ff4500;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .info-section a:hover {
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #000;
+            border-top: 2px solid #ff4500;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+</head>
+<body>
+    <header>
+        <h1>Рынок RockCOIN</h1>
+    </header>
+
+    <div class="container">
+        <div class="chart-section">
+            <h2>График Цены RockCOIN</h2>
+            <canvas id="rockcoinChart"></canvas>
+        </div>
+        <div class="info-section">
+            <p>Узнайте больше и присоединяйтесь к сообществу: <a href="https://t.me/blum/app?startapp=memepadjetton_ROCK_4gZbY-ref_EYl4MKmVi4">Telegram</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 RockCOIN. Все права защищены.</p>
+    </footer>
+
+    <script>
+        const ctx = document.getElementById('rockcoinChart').getContext('2d');
+        const rockcoinChart = new Chart(ctx, {
+            type: 'candlestick',
+            data: {
+                datasets: [{
+                    label: 'Цена RockCOIN (ROCK)',
+                    data: [
+                        {x: new Date('2025-01-01'), o: 10.50, h: 11.00, l: 10.00, c: 10.75},
+                        {x: new Date('2025-02-01'), o: 11.25, h: 11.50, l: 11.00, c: 11.30},
+                        {x: new Date('2025-03-01'), o: 11.75, h: 12.00, l: 11.50, c: 11.90},
+                        {x: new Date('2025-04-01'), o: 12.50, h: 12.75, l: 12.25, c: 12.60}
+                    ],
+                    borderColor: '#ff4500',
+                    backgroundColor: 'rgba(255, 69, 0, 0.5)',
+                    color: {
+                        up: '#00ff00',
+                        down: '#ff0000',
+                        unchanged: '#fff'
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: { unit: 'month' }
+                    },
+                    y: { beginAtZero: false }
+                },
+                plugins: {
+                    legend: { labels: { color: '#fff' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
