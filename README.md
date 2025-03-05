@@ -25,12 +25,11 @@ Ecosystem: 25%
 Liquidity: 10%
 
 📈 Growth Statistics
-| Month | Active Users | Trading Volume | RockCOIN Price |
-|-------|----------------------|--------------|-----------|
-| Month | 5,000 | $1.5M | $10.50 |
-| January | 7,500 | $2.0M | $11.25 |
-| February | 9,000 | $2.2M | $11.75 |
-| March | 10,000+ | $2.5M | $12.50 |
+Month	Active Users	Trading Volume	RockCOIN Price
+January	5,000	$1.5M	$10.50
+February	7,500	$2.0M	$11.25
+March	9,000	$2.2M	$11.75
+April	10,000+	$2.5M	$12.50
 
 # 💎 Key Metrics
 Total supply: 100M ROCK
