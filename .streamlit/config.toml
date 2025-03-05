@@ -1,10 +1,12 @@
+# Конфигурация сервера
 [server]
-headless = true
-address = "0.0.0.0"
-port = 5000
+headless = true              # Режим без графического интерфейса
+address = "0.0.0.0"          # Адрес для доступа (все интерфейсы)
+port = 5000                  # Порт сервера
 
+# Настройки темы
 [theme]
-primaryColor = "#ff69b4"
-backgroundColor = "#000000"
-secondaryBackgroundColor = "#262730"
-textColor = "#ff00ff"
+primaryColor = "#ff69b4"     # Основной цвет (яркий розовый)
+backgroundColor = "#000000"  # Фон (чистый чёрный)
+secondaryBackgroundColor = "#262730"  # Вторичный фон (тёмно-серый)
+textColor = "#ff00ff"        # Цвет текста (кислотно-розовый, фуксия)
