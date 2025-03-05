@@ -5,7 +5,7 @@ In the project, two main charts are used:
 
 [Chart of beat sales]
 
-[Chart of RockCOIN price](readme2.mds)
+[Chart of RockCOIN price](https://github.com/SHARP132/ROCK__COIN/blob/main/rockcoin-site.html)
 # 🚀 About the Project
 RockCOIN (ROCK) — revolutionary cryptocurrency to support rock music. Our platform connects musicians and fans via blockchain.
 With this coin, you can buy beats and also sell them on the same site using this cryptocurrency.
