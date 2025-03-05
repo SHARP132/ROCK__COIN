@@ -60,5 +60,5 @@ Join us at:
 [TikTok](https://www.tiktok.com/@rock_coin8?_t=ZM-8uNPKjcRZ9L&_r=1)
 
 [Coin](https://t.me/blum/app?startapp=memepadjetton_ROCK_4gZbY-ref_EYl4MKmVi4)
-
+---
 © 2025 RockCOIN. All rights reserved. 🎸
