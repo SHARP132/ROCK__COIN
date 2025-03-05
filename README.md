@@ -3,7 +3,7 @@ Revolutionary cryptocurrency for rock music and the music industry.
 # 📊 Charts in the Project.
 In the project, two main charts are used:
 
-Chart of beat sales.
+[Chart of beat sales](rockcoin-site.html)
 Chart of RockCOIN price.
 # 🚀 About the Project
 RockCOIN (ROCK) — revolutionary cryptocurrency to support rock music. Our platform connects musicians and fans via blockchain.
